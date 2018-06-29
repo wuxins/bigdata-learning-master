@@ -1,0 +1,40 @@
+server:
+  port: 80
+  session-timeout: 30
+  tomcat.max-threads: 1
+  tomcat.uri-encoding: UTF-8
+
+mybatis:
+  type-aliases-package: com.fsmeeting.analytics.collect.bean
+  mapper-locations: classpath:mapper/*.xml
+
+spring:
+  datasource:
+    url : jdbc:mysql://node-1:3306/analytics?useUnicode=true&characterEncoding=utf8
+    username : root
+    password : fsmeeting
+    driverClassName : com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+  kafka:
+    producer:
+      bootstrap-servers: node-1:9092
+  dubbo:
+    application:
+      name: analytics-collect
+    registry:
+      protocol: zookeeper
+      address: node-1:2181
+    protocol:
+      name: dubbo
+      port: 20880
+    reference:
+      id: authService
+      interface: com.fsmeeting.cloud.dubbo.analysis.service.IAuthService
+      check: false
+      retries: 3
+      timeout: 10000
+    scan: com.fsmeeting.cloud.dubbo.analysis.service
+
+
+

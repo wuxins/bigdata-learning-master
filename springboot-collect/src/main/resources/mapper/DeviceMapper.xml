@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fsmeeting.analytics.collect.mapper.DeviceMapper">
+
+    <insert id="insertClientLog" parameterType="com.fsmeeting.analytics.collect.bean.ClientLog">
+        INSERT INTO t_client_log (
+            device,
+            event,
+            meeting,
+            created,
+            updated
+        ) VALUES (
+            #{device},
+            #{event},
+            #{meeting},
+            now(),
+            now()
+        )
+    </insert>
+
+</mapper>
